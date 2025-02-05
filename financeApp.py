@@ -27,13 +27,14 @@ def create_acc():
     while True:
         email = input("Enter your Email: ")
 
-        if '@' in email and '.' in email:  # Simple email validation
-            if email in user:  # Check if email already exists
+        if is_valid_email(email):
+            if email in user:
                 print("❌ This email is already registered. Please use a different email.")
             else:
-                break  # Email is valid and not used
+                break
         else:
             print("❌ Invalid Email. Please try again.")
+
 
     user[email] = {"Full Name": full_name, "Password": password}  # Store user data
     print("✅ Account successfully created!")
@@ -48,6 +49,10 @@ def is_valid_password(password):
 
     print("❌ Password must contain: \n - At least 6 characters\n - 1 uppercase letter\n - 1 lowercase letter\n - 1 number\n - 1 special character (@, #, etc.)")
     return False
+
+def is_valid_email(email):
+    patterns = r"^[a-zA-Z][a-zA-Z0-9_.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    return re.match(patterns, email)
 
 def view_acc():
     while True:
